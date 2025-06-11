@@ -4,7 +4,7 @@ import '../styles/global.css'
 import { AppProps } from 'next/app'
 import store, { useAppSelector } from '../reducers/store'
 import { Provider } from 'react-redux'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Modal from 'react-modal'
 import { appWithTranslation } from 'next-i18next'
 import Script from 'next/script'
@@ -12,10 +12,10 @@ import { useRouter } from 'next/router'
 import * as gtag from '../lib/gtag'
 Modal.setAppElement('#__next')
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, pageProps }: AppProps): React.ReactElement => {
   const router = useRouter()
   useEffect(() => {
-    const handleRouteChange = (url) => {
+    const handleRouteChange = (url: string): void => {
       gtag.pageview(url)
     }
     router.events.on('routeChangeComplete', handleRouteChange)
@@ -26,10 +26,12 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Script
+        id="ga-script"
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
       />
       <Script
+        id="ga-init"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
@@ -51,7 +53,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   )
 }
 
-function ModeEffect () {
+function ModeEffect (): null {
   const mode = useAppSelector(state => state.mode.value)
   useEffect(() => {
     document.documentElement.className = mode

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAppSelector, useAppDispatch } from '../../reducers/store'
 import { changeLanguage } from '../../reducers/locale_slice'
@@ -8,19 +8,19 @@ const lngs = {
   'zh-TW': { nativeName: '繁體中文' }
 }
 
-const NavLanguage = () => {
+const NavLanguage = (): React.ReactElement => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const router = useRouter()
   const { language } = useAppSelector(state => state.locale)
   const dispatch = useAppDispatch()
 
-  const handleDropdownToggle = () => {
+  const handleDropdownToggle = (): void => {
     setIsDropdownOpen(isDropdownOpen => !isDropdownOpen)
   }
 
-  const onToggleLanguageClick = (newLocale: string) => {
-    const { pathname, asPath, query } = router
-    router.push({ pathname, query }, router.asPath, { locale: newLocale })
+  const onToggleLanguageClick = (newLocale: string): void => {
+    const { pathname, query } = router
+    void router.push({ pathname, query }, router.asPath, { locale: newLocale })
   }
 
   return (
