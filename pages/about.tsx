@@ -30,11 +30,11 @@ interface AboutProps {
   locale: typeof i18n.locales[number]
 }
 
-export default function about ({ education, works, achievements, skillsList, projects, locale }: AboutProps): React.ReactElement {
+export default function About ({ education, works, achievements, skillsList, projects, locale }: AboutProps): React.ReactElement {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(changeLanguage(locale))
-  }, [])
+  }, [dispatch, locale])
   const { t } = useTranslation()
 
   return (
