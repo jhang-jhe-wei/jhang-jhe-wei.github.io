@@ -1,6 +1,6 @@
 # **Jhang Jhe-Wei's Personal Website**
 
-This is the repository for Jhang Jhe-Wei's personal website, which is hosted on GitHub Pages. The website includes information about Jhang Jhe-Wei, his projects, and his interests.
+This is the repository for Jhang Jhe-Wei's personal website, which is hosted on Vercel. The website includes information about Jhang Jhe-Wei, his projects, and his interests.
 
 ## **Getting Started**
 

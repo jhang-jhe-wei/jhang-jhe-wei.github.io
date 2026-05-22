@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run lint` — `next lint` (must be run manually; the build does not enforce it — see Gotchas)
 - `npm run start` — serve the production build locally
 - No test runner is configured.
-- Deploy: `.github/workflows/deploy.yml` runs `next build` → `next export` → upload to GitHub Pages (only via `workflow_dispatch` — see Gotchas).
+- Deploy: **Vercel, zero-config** — connected to this GitHub repo, every push to `master` is auto-deployed to https://wells.tw. There is no deploy workflow in this repo (an old GitHub Pages workflow used to live at `.github/workflows/deploy.yml` but was removed; it was never the production path).
 
 ## Tech Stack
 
@@ -35,14 +35,10 @@ Adding a string or content item means editing BOTH locale variants.
 ### Redux (`reducers/`) — UI chrome only
 Slices: `mode` (dark/light), `light`, `figure`, `neonsign`, `locale_slice`. No server state and no data fetching here. `store.ts` exports typed `useAppSelector` / `useAppDispatch` hooks.
 
-### Static export to GitHub Pages
-CI runs `next build` then `next export` into `./out`, then `actions/upload-pages-artifact` + `actions/deploy-pages`. Site URL in `next-sitemap.config.js` is `https://wells.tw`. There is no server-side runtime — anything that requires SSR or per-request data will break the export.
+### Hosting on Vercel
+Vercel builds with `next build` (no static export) and runs the result with full Next.js SSR/SSG support, so `getStaticProps`, `getServerSideProps`, and next-i18next's built-in i18n routing all work as written. Site URL in `next-sitemap.config.js` is `https://wells.tw`.
 
 ## Gotchas
 
-- **`next.config.js` silences both TS and ESLint errors at build time** (`typescript.ignoreBuildErrors: true`, `eslint.ignoreDuringBuilds: true`). Builds and CI deploys will pass with broken types. Run `npm run lint` and `npx tsc --noEmit` manually before declaring a change green.
-- **Node version mismatch**: `.nvmrc` pins `18.12.1`, but `.github/workflows/deploy.yml` uses Node `20`. Match CI (20) when reproducing build issues.
-- **Two lockfiles** (`package-lock.json` and `yarn.lock`) both exist. The CI `detect-package-manager` step picks **yarn** first because `yarn.lock` is present. Keep them in sync when changing deps.
-- **Deploy workflow trigger is `branches: [$default-branch]`** — the literal GitHub template placeholder, not a real branch name. Push to `master` will NOT trigger a deploy; it only runs via `workflow_dispatch`.
-- **`next export` is removed in Next 14.** This repo is pinned at 13.4 partly because of that. A Next upgrade requires migrating to `output: 'export'` in `next.config.js` and dropping the `next export` step from CI.
+- **`next.config.js` silences both TS and ESLint errors at build time** (`typescript.ignoreBuildErrors: true`, `eslint.ignoreDuringBuilds: true`). The Vercel deploy will pass with broken types or lint errors. Run `npm run lint` and `npx tsc --noEmit` manually before declaring a change green.
 - **`@mui/x-charts` is in `transpilePackages`** because it ships untranspiled ESM. Keep it there if you bump the version.
