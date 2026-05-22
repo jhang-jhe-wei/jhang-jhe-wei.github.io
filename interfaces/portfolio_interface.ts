@@ -3,8 +3,8 @@ export interface ProjectProps {
   tag: string;
   image: string;
   description: string;
-  demo_link: string;
-  code_link: string;
+  demo_link?: string;
+  code_link?: string;
   highlight?: boolean;
 }
 

@@ -1,9 +1,9 @@
 import { useAppSelector } from '../../reducers/store'
 import { useRef, useEffect } from 'react'
 import { StrokeStates } from '../../reducers/neonsign/neonsign_slice'
-export default function Neonsign ({ width }: {width: string}) {
-  const element = useRef(null)
-  const animationId = useRef(null)
+export default function Neonsign ({ width }: {width: string}): React.ReactElement {
+  const element = useRef<SVGPathElement | null>(null)
+  const animationId = useRef<number | null>(null)
   const color = useAppSelector(state => state.neonsign.color)
   const strokeColor = useAppSelector(state => state.neonsign.strokeColor)
   const strokeState = useRef<StrokeStates>('forward')
@@ -12,8 +12,8 @@ export default function Neonsign ({ width }: {width: string}) {
   useEffect(() => {
     let strokeOffset = 0
     let lastTime = 0
-    function loop (time) {
-      if (element.current) {
+    function loop (time: number): void {
+      if (element.current != null) {
         const timeDiff = time - lastTime
         lastTime = time
 
@@ -23,7 +23,7 @@ export default function Neonsign ({ width }: {width: string}) {
           strokeOffset -= timeDiff / 20
         }
 
-        element.current.setAttribute('stroke-dashoffset', strokeOffset)
+        element.current.setAttribute('stroke-dashoffset', String(strokeOffset))
         animationId.current = requestAnimationFrame(loop)
       }
     }

@@ -1,4 +1,5 @@
 import { NextSeo } from 'next-seo'
+import { GetStaticProps } from 'next'
 import Figure from '../components/landing/figure'
 import Signboard from '../components/landing/signboard'
 import PipelineDiagram from '../components/landing/pipeline_diagram'
@@ -64,11 +65,12 @@ export default function Home ({ locale }: HomeProps): React.ReactElement {
   )
 }
 
-export const getStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const lng = (locale ?? i18n.defaultLocale) as typeof i18n.locales[number]
   return {
     props: {
-      locale,
-      ...(await serverSideTranslations(locale, [
+      locale: lng,
+      ...(await serverSideTranslations(lng, [
         'common'
       ]))
     }

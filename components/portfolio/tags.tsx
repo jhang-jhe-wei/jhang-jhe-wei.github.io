@@ -8,12 +8,12 @@ interface TagsData {
 
 export default function Tags ({ tags, queryTag }: TagsData): React.ReactElement {
   const router = useRouter()
-  const addQuery = useCallback((query) => {
-    router.push({
+  const addQuery = useCallback((query: string): void => {
+    void router.push({
       pathname: '/portfolio',
       query: { tag: query }
     })
-  }, [])
+  }, [router])
 
   return (
     <ul className="flex mx-auto mt-20 overflow-x-auto max-w-fit">

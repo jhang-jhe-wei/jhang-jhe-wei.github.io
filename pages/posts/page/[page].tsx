@@ -118,39 +118,40 @@ export default function PostPage (props: PostProps): React.ReactElement {
 }
 
 export const getServerSideProps: GetServerSideProps<PostProps> = async (context) => {
-  const {
-    locale,
-    params: { page }
-  } = context
+  const lng = (context.locale ?? i18n.defaultLocale) as typeof i18n.locales[number]
+  const page = Number(context.params?.page ?? 1)
 
   const result = await GithubAPI.request('GET /repos/{owner}/{repo}/issues', {
     owner: 'jhang-jhe-wei',
     repo: 'jhang-jhe-wei.github.com',
     state: 'closed',
     sort: 'updated',
-    page: Number(page),
+    page,
     headers: {
       'X-GitHub-Api-Version': '2022-11-28'
     }
   })
 
-  const issues = result.data.filter((issue) => !issue.hasOwnProperty('pull_request')).map((issue) => ({
-    title: issue.title,
-    id: issue.number,
-    sort: 'updated',
-    createdAt: issue.created_at,
-    updatedAt: issue.updated_at,
-    labels: issue.labels.map((label) => label.name)
-  }))
+  const issues = result.data
+    .filter((issue) => !Object.prototype.hasOwnProperty.call(issue, 'pull_request'))
+    .map((issue) => ({
+      title: issue.title,
+      id: issue.number,
+      sort: 'updated',
+      createdAt: issue.created_at,
+      updatedAt: issue.updated_at,
+      labels: issue.labels.map((label) => (typeof label === 'string' ? label : (label.name ?? '')))
+    }))
 
   return {
     props: {
       posts: issues,
-      locale,
-      ...(await serverSideTranslations(locale, [
+      locale: lng,
+      page,
+      totalPage: page,
+      ...(await serverSideTranslations(lng, [
         'common'
       ]))
-
     }
   }
 }

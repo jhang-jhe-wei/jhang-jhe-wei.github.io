@@ -1,6 +1,6 @@
-export default function FacebookLogo ({ mode }: { mode: string }) {
+export default function FacebookLogo ({ mode }: { mode?: string }): React.ReactElement {
   return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className={ mode == 'dark' ? 'invert dark:invert-0' : 'dark:invert' }>
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className={ mode === 'dark' ? 'invert dark:invert-0' : 'dark:invert' }>
       <path d="M32 16C32 7.15852 24.8415 0 16 0C7.15852 0 0 7.15852 0 16C0 23.9881 5.85482 30.6015 13.5111 31.8104V20.6222H9.43407V16H13.5111V12.4681C13.5111 8.46222 15.8815 6.25778 19.5319 6.25778C21.2859 6.25778 23.1111 6.56593 23.1111 6.56593V10.5007H21.0963C19.1052 10.5007 18.4889 11.7333 18.4889 12.9896V16H22.9215L22.2104 20.6222H18.4889V31.8104C26.1452 30.6015 32 23.9881 32 16Z" fill="black"/>
       <path d="M22.2341 20.6223L22.9452 16H18.4889V12.9897C18.4889 11.7334 19.1052 10.5008 21.0963 10.5008H23.1111V6.56596C23.1111 6.56596 21.2859 6.25781 19.5319 6.25781C15.8815 6.25781 13.5111 8.46226 13.5111 12.4682V16H9.43408V20.6223H13.5111V31.8104C14.317 31.9289 15.1704 32 16 32C16.8533 32 17.683 31.9289 18.4889 31.8104V20.6223H22.2341Z" fill="white"/>
     </svg>

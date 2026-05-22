@@ -1,7 +1,7 @@
 import { NextSeo } from 'next-seo'
 import ReactMarkdown from 'react-markdown'
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
-import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import remarkGfm from 'remark-gfm'
 import Layout from '../../components/layout'
 import rehypeRaw from 'rehype-raw'
@@ -82,9 +82,10 @@ export default function Post (props: PostProps): React.ReactElement {
                     />
                   ),
                   code: (props) => {
-                    const {children, className, node, ...rest} = props
+                    const { children, className, node, ...rest } = props
                     const match = /language-(\w+)/.exec(className || '')
-                    return match ? (
+                    return (match != null)
+                      ? (
                       <SyntaxHighlighter
                         {...rest}
                         PreTag="div"
@@ -93,15 +94,17 @@ export default function Post (props: PostProps): React.ReactElement {
                         wrapLines={true}
                         style={a11yDark}
                         customStyle={{
-                          backgroundColor: 'transparent',
+                          backgroundColor: 'transparent'
                         }}
                       />
-                    ) : (
+                        )
+                      : (
                         <code {...rest} className={className}>
                           {children}
                         </code>
-                      )
-                  }}
+                        )
+                  }
+                }
                 }
                 children={post.body}
               />
@@ -115,10 +118,8 @@ export default function Post (props: PostProps): React.ReactElement {
 }
 
 export const getServerSideProps: GetServerSideProps<PostProps> = async (context) => {
-  const {
-    locale,
-    params: { id }
-  } = context
+  const lng = (context.locale ?? i18n.defaultLocale) as typeof i18n.locales[number]
+  const id = Number(context.params?.id)
 
   const result = await GithubAPI.request('GET /repos/{owner}/{repo}/issues/{issue_number}', {
     owner: 'jhang-jhe-wei',
@@ -131,9 +132,9 @@ export const getServerSideProps: GetServerSideProps<PostProps> = async (context)
 
   return {
     props: {
-      locale,
-      post: result.data,
-      ...(await serverSideTranslations(locale, [
+      locale: lng,
+      post: result.data as unknown as Issue,
+      ...(await serverSideTranslations(lng, [
         'common'
       ]))
     }

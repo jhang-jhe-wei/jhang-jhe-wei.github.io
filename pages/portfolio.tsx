@@ -65,14 +65,15 @@ export default function Portfolio ({ projects, tags, locale }: PortfolioProps): 
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const projects: Project[] = await getPortfolioData(locale)
+  const lng = (locale ?? i18n.defaultLocale) as typeof i18n.locales[number]
+  const projects: Project[] = await getPortfolioData(lng)
   const tags = Array.from(new Set(projects.map(project => project.tag)))
   return {
     props: {
       projects,
       tags,
-      locale,
-      ...(await serverSideTranslations(locale, [
+      locale: lng,
+      ...(await serverSideTranslations(lng, [
         'common'
       ]))
     }

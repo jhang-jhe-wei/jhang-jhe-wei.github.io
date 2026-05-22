@@ -76,14 +76,15 @@ export default function About ({ education, works, achievements, skillsList, pro
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const aboutData = await getAboutData(locale)
-  const projects: ProjectProps[] = await getPortfolioData(locale)
+  const lng = (locale ?? i18n.defaultLocale) as typeof i18n.locales[number]
+  const aboutData = await getAboutData(lng)
+  const projects: ProjectProps[] = await getPortfolioData(lng)
   return {
     props: {
       ...aboutData,
       projects,
-      locale,
-      ...(await serverSideTranslations(locale, [
+      locale: lng,
+      ...(await serverSideTranslations(lng, [
         'common'
       ]))
     }

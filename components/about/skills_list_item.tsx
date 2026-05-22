@@ -1,6 +1,6 @@
 import { SkillsProps } from '../../interfaces/about_interface'
 import useReveal from '../../lib/use_reveal'
-import { PieChart } from '@mui/x-charts/PieChart';
+import { PieChart } from '@mui/x-charts/PieChart'
 
 interface SkillsListItemProps {
   skills: SkillsProps
@@ -36,15 +36,15 @@ export default function SkillsListItem ({ skills, index }: SkillsListItemProps) 
               data,
               innerRadius: 30,
               highlightScope: { faded: 'global', highlighted: 'item' },
-              faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
-            },
+              faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' }
+            }
           ]}
           slotProps={{
             legend: {
               direction: 'column',
               position: { vertical: 'middle', horizontal: 'right' },
-              padding: 0,
-            },
+              padding: 0
+            }
           }}
         />
       }

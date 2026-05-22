@@ -59,7 +59,7 @@ const NavLanguage = (): React.ReactElement => {
               }}
               disabled={language === lng}
             >
-              {lngs[lng].nativeName}
+              {lngs[lng as keyof typeof lngs].nativeName}
             </button>
           ))}
         </div>

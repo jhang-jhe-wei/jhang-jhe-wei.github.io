@@ -1,7 +1,7 @@
 import { useAppSelector, useAppDispatch } from '../../reducers/store'
 import { toggle } from '../../reducers/light/light_slice'
 
-export default function Light ({ index }) {
+export default function Light ({ index }: { index: number }): React.ReactElement {
   const reveal = useAppSelector(state => state.light.value[index])
   const dispatch = useAppDispatch()
 

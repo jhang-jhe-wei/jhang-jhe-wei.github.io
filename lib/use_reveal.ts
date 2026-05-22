@@ -4,8 +4,10 @@ export default function useReveal (): [MutableRefObject<any>, boolean] {
   const element = useRef(null)
   useEffect(() => {
     if (reveal) return
-    const scrollEventHandler = () => {
-      if (element.current.getBoundingClientRect().top < window.innerHeight * 5 / 6) {
+    const scrollEventHandler = (): void => {
+      const node = element.current as HTMLElement | null
+      if (node == null) return
+      if (node.getBoundingClientRect().top < window.innerHeight * 5 / 6) {
         setReveal(true)
       }
     }
