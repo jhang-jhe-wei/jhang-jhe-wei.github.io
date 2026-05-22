@@ -41,4 +41,5 @@ Vercel builds with `next build` (no static export) and runs the result with full
 ## Gotchas
 
 - **`next.config.js` silences both TS and ESLint errors at build time** (`typescript.ignoreBuildErrors: true`, `eslint.ignoreDuringBuilds: true`). The Vercel deploy will pass with broken types or lint errors. Run `npm run lint` and `npx tsc --noEmit` manually before declaring a change green.
+- **Node 24+ is required.** `.nvmrc` and `package.json#engines.node` both pin this, but **Vercel's Project Settings → Node.js Version overrides them** — keep that dashboard setting in sync when bumping. Vercel discontinued 18.x in May 2026 and surfaced this as a hard build failure.
 - **`@mui/x-charts` is in `transpilePackages`** because it ships untranspiled ESM. Keep it there if you bump the version.
