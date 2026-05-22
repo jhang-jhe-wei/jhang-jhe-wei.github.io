@@ -30,3 +30,6 @@ yarn-error.log*
 .env.production.local
 public/sitemap*.xml
 public/robots.txt
+
+# typescript incremental build
+tsconfig.tsbuildinfo

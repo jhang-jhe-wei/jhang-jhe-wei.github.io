@@ -16,6 +16,6 @@ The content of this repository is licensed under the MIT License. See the **`LIC
 
 ## **Contact**
 
-If you have any questions or would like to get in touch with Jhang Jhe-Wei, please contact him via his website or via email at **[wells.jhang@cyberbiz.io](mailto:jhang.jhewei@gmail.com)**.
+If you have any questions or would like to get in touch with Jhang Jhe-Wei, please contact him via his website or via email at **[hi@wells.tw](mailto:hi@wells.tw)**.
 
 Thank you for visiting Jhang Jhe-Wei's personal website repository!
