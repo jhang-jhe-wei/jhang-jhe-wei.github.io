@@ -19,9 +19,6 @@ module.exports = {
       spacing: {
         '1.25': '5px',
       },
-      lineClamp: {
-        7: '7',
-      },
       margin: {
         '6.5': '26px',
         '8.5': '34px'
@@ -58,7 +55,6 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/typography'),
-    require('@tailwindcss/line-clamp'),
     function ({ addComponents }) {
       addComponents({
         '.container': {

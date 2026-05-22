@@ -69,45 +69,44 @@ export default function Post (props: PostProps): React.ReactElement {
           <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
             <article className="w-full max-w-2xl mx-auto format format-sm sm:format-base lg:format-lg format-blue dark:format-invert prose dark:prose-invert">
               <h1 className="text-4xl font-bold text-center">{post.title}</h1>
-              <ReactMarkdown
-                className="py-1 react-markdown box-border"
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeRaw]}
-                components={{
-                  img: ({ node, ...props }) => (
-                    <img
-                      {...props}
-                      width={800}
-                      height={800}
-                    />
-                  ),
-                  code: (props) => {
-                    const { children, className, node, ...rest } = props
-                    const match = /language-(\w+)/.exec(className || '')
-                    return (match != null)
-                      ? (
-                      <SyntaxHighlighter
-                        {...rest}
-                        PreTag="div"
-                        children={String(children).replace(/\n$/, '')}
-                        language={match[1]}
-                        wrapLines={true}
-                        style={a11yDark}
-                        customStyle={{
-                          backgroundColor: 'transparent'
-                        }}
+              <div className="py-1 react-markdown box-border">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeRaw]}
+                  components={{
+                    img: ({ node, ...props }) => (
+                      <img
+                        {...props}
+                        width={800}
+                        height={800}
                       />
-                        )
-                      : (
-                        <code {...rest} className={className}>
-                          {children}
-                        </code>
-                        )
-                  }
-                }
-                }
-                children={post.body}
-              />
+                    ),
+                    code: (props) => {
+                      const { children, className, node, ref, ...rest } = props
+                      const match = /language-(\w+)/.exec(className ?? '')
+                      return (match != null)
+                        ? (
+                          <SyntaxHighlighter
+                            PreTag="div"
+                            language={match[1]}
+                            wrapLines={true}
+                            style={a11yDark}
+                            customStyle={{ backgroundColor: 'transparent' }}
+                          >
+                            {String(children).replace(/\n$/, '')}
+                          </SyntaxHighlighter>
+                          )
+                        : (
+                          <code {...rest} className={className}>
+                            {children}
+                          </code>
+                          )
+                    }
+                  }}
+                >
+                  {post.body}
+                </ReactMarkdown>
+              </div>
             <div id="gitalk-container"></div>
             </article>
           </div>
