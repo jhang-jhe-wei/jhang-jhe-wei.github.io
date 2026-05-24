@@ -1,4 +1,5 @@
 import { NextSeo } from 'next-seo'
+import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
@@ -86,13 +87,19 @@ export default function PostPage (props: PostProps): React.ReactElement {
                   remarkPlugins={[remarkGfm]}
                   rehypePlugins={[rehypeRaw]}
                   components={{
-                    img: ({ node, ...props }) => (
-                      <img
-                        {...props}
-                        width={800}
-                        height={800}
-                      />
-                    ),
+                    img: ({ node, src, alt, ...props }) => {
+                      if (typeof src !== 'string' || src.length === 0) return null
+                      return (
+                        <Image
+                          src={src}
+                          alt={alt ?? ''}
+                          width={800}
+                          height={800}
+                          sizes="(max-width: 768px) 100vw, 800px"
+                          style={{ width: '100%', height: 'auto' }}
+                        />
+                      )
+                    },
                     code: (props) => {
                       const { children, className, node, ref, ...rest } = props
                       const match = /language-(\w+)/.exec(className ?? '')
