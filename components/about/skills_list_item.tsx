@@ -6,7 +6,7 @@ interface SkillsListItemProps {
   skills: SkillsProps
   index: number
 }
-export default function SkillsListItem ({ skills, index }: SkillsListItemProps) {
+export default function SkillsListItem ({ skills, index }: SkillsListItemProps): React.ReactElement {
   const [element, reveal] = useReveal()
 
   const data = skills.skills.map(skill => {

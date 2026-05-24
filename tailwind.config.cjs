@@ -59,10 +59,10 @@ module.exports = {
       addComponents({
         '.container': {
           maxWidth: '80%',
-          '@screen sm': {
+          '@media (min-width: 640px)': {
             maxWidth: '600px',
           },
-          '@screen xl': {
+          '@media (min-width: 1280px)': {
             maxWidth: '1024px',
           },
         },

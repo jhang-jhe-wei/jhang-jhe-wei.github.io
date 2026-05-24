@@ -1,9 +1,9 @@
-interface ButtonBox{
+interface ButtonBoxProps {
   x: string
   y: string
   clickHandlers?: any
 }
-export default function ButtonBox ({ x, y, clickHandlers }: ButtonBox) {
+export default function ButtonBox ({ x, y, clickHandlers }: ButtonBoxProps): React.ReactElement {
   return (
     <svg x={x} y={y} width="40" height="70" viewBox="0 0 40 70" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="40" height="70" className="stroke-primary dark:stroke-white" strokeWidth="4"/>

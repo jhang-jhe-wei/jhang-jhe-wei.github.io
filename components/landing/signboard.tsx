@@ -1,7 +1,7 @@
 import Light from './light'
 import Neonsign from './neonsign'
 
-export default function Signboard () {
+export default function Signboard (): React.ReactElement {
   return (
     <>
       <div className="w-full border-b-4 border-primary dark:border-white">

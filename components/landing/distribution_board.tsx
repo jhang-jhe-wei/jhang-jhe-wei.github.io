@@ -1,4 +1,4 @@
-export default function DistributionBoard ({ x, y }: { x: string, y: string }) {
+export default function DistributionBoard ({ x, y }: { x: string, y: string }): React.ReactElement {
   return (
     <svg x={x} y={y} width="131" height="86" viewBox="0 0 131 86" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M113.515 84.2859H17.313C8.92714 84.2859 2.04883 77.4948 2.04883 69.006V17.507C2.04883 9.11246 8.83291 2.22705 17.313 2.22705H113.515C121.901 2.22705 128.779 9.01814 128.779 17.507V69.006C128.779 77.4948 121.901 84.2859 113.515 84.2859Z" className="stroke-primary dark:stroke-white" strokeWidth="2.6743" strokeMiterlimit="10"/>

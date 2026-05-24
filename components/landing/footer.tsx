@@ -1,5 +1,5 @@
 import SocialMediaList from '../social_media_list/social_media_list'
-export default function Footer () {
+export default function Footer (): React.ReactElement {
   return (
     <div className="flex w-full">
       <svg height="40" width="100%">

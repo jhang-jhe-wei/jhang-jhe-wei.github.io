@@ -66,7 +66,7 @@ export default function Home ({ locale }: HomeProps): React.ReactElement {
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const lng = (locale ?? i18n.defaultLocale) as typeof i18n.locales[number]
+  const lng = locale ?? i18n.defaultLocale
   return {
     props: {
       locale: lng,

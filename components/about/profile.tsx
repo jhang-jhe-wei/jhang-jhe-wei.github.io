@@ -2,7 +2,7 @@ import SocialMediaList from '../social_media_list/social_media_list'
 import profileImg from '../../public/images/profile.png'
 import { useTranslation } from 'next-i18next'
 
-export default function profoilo (): React.ReactElement {
+export default function Profile (): React.ReactElement {
   const { t } = useTranslation()
   const highlights = {
     [t('achievementCount')]: 12,

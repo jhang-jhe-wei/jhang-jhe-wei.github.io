@@ -7,7 +7,7 @@ import SocialMediaList from '../social_media_list/social_media_list'
 import { useAppDispatch } from '../../reducers/store'
 import { changeColor, changeStrokeColor, changeStrokeState } from '../../reducers/neonsign/neonsign_slice'
 
-export default function PipelineDiagram () {
+export default function PipelineDiagram (): React.ReactElement {
   const dispatch = useAppDispatch()
   return (
     <svg viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">

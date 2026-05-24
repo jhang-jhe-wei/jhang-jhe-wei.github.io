@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
-export default function Resume () {
+export default function Resume (): React.ReactElement {
   const { t } = useTranslation()
   return (
     <div className="pb-32 mt-32 text-center">

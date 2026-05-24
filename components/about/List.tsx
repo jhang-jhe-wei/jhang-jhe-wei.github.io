@@ -4,7 +4,7 @@ import ListItem from './list_item'
 export default function List (listProps: ListProps): React.ReactElement {
   const { t } = useTranslation()
   return (
-    <div className={`grid xl:grid-cols-3 grid-cols-5 ${listProps.styleName}`} id={listProps.id}>
+    <div className={`grid xl:grid-cols-3 grid-cols-5 ${listProps.styleName ?? ''}`} id={listProps.id}>
       <h3 className="absolute hidden text-white md:text-4xl md:block font-notosans shadow-gray-700 rotate-90 origin-top-left xl:text-7xl break-inside-avoid">
         {listProps.backgroundText?.split(' ').map(text => (
           <span key={text}>

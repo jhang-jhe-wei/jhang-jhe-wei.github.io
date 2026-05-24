@@ -1,6 +1,6 @@
 import { AchievementProps } from '../../interfaces/about_interface'
 import useReveal from '../../lib/use_reveal'
-export default function Achievement ({ item }: {item: AchievementProps}) {
+export default function Achievement ({ item }: {item: AchievementProps}): React.ReactElement {
   const [element, reveal] = useReveal()
 
   return (

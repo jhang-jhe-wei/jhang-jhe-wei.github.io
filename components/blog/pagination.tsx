@@ -5,7 +5,7 @@ interface PaginationProps {
   totalPage: number
   currentPage: number
 }
-export default function Pagination (props: PaginationProps) {
+export default function Pagination (props: PaginationProps): React.ReactElement {
   const { totalPage, currentPage } = props
   return (
     <nav aria-label="Page navigation example">

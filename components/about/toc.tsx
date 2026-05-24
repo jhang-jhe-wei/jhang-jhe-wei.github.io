@@ -5,7 +5,7 @@ export default function Toc (): React.ReactElement {
   return (
     <ul className="justify-center hidden mt-20 sm:flex">
     { anchors.map((anchor, index) =>
-    <li key={ anchor } className={`px-6 text-base text-center  ${(index == anchors.length - 1) ? '' : 'border-r-2 border-primary dark:border-white'}`}>
+    <li key={ anchor } className={`px-6 text-base text-center  ${(index === anchors.length - 1) ? '' : 'border-r-2 border-primary dark:border-white'}`}>
       <button onClick={() => {
         const node = document.getElementById(anchor)
         if (node === null) return

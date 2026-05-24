@@ -1,6 +1,6 @@
 import { useAppDispatch } from '../../reducers/store'
 import { toggleAll } from '../../reducers/light/light_slice'
-export default function SwitchBox ({ x, y }: { x: string, y: string }) {
+export default function SwitchBox ({ x, y }: { x: string, y: string }): React.ReactElement {
   const dispatch = useAppDispatch()
   return (
     <svg x={x} y={y} width="70" height="40" viewBox="0 0 70 40" fill="none" xmlns="http://www.w3.org/2000/svg">

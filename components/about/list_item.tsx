@@ -1,6 +1,6 @@
 import { ListItemProps } from '../../interfaces/about_interface'
 import { useState, useEffect, useRef } from 'react'
-export default function ListItem ({ item }: {item: ListItemProps}) {
+export default function ListItem ({ item }: {item: ListItemProps}): React.ReactElement {
   const [reveal, setReveal] = useState(false)
   const element = useRef<HTMLLIElement>(null)
   useEffect(() => {

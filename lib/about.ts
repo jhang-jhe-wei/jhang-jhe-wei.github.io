@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import YAML from 'yaml'
-import { assert, object, number, boolean, string, array, optional } from 'superstruct'
+import { assert, object, number, boolean, string, array, optional, type Infer } from 'superstruct'
 import { i18n } from '../next-i18next.config'
 
 const AboutModel = object({
@@ -34,8 +34,10 @@ const AboutModel = object({
   ))
 })
 
-export async function getAboutData (locale: typeof i18n.locales[number]) {
-  const lng = locale || i18n.defaultLocale
+export type AboutData = Infer<typeof AboutModel>
+
+export async function getAboutData (locale: typeof i18n.locales[number]): Promise<AboutData> {
+  const lng = locale.length > 0 ? locale : i18n.defaultLocale
   const filePath = path.join(process.cwd(), 'data', lng, 'about.yml')
   const file = fs.readFileSync(filePath, 'utf8')
   const data = YAML.parse(file)

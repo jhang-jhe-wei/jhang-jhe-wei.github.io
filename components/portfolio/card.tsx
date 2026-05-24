@@ -3,16 +3,16 @@ import useReveal from '../../lib/use_reveal'
 import Modal from 'react-modal'
 import { useState } from 'react'
 
-export default function Card ({ project }: { project: Project }) {
+export default function Card ({ project }: { project: Project }): React.ReactElement {
   const [element, reveal] = useReveal()
 
   const [modalIsOpen, setIsOpen] = useState(false)
 
-  function openModal () {
+  function openModal (): void {
     setIsOpen(true)
   }
 
-  function closeModal () {
+  function closeModal (): void {
     setIsOpen(false)
   }
 

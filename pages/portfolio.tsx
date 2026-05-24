@@ -21,19 +21,20 @@ interface PortfolioProps {
 }
 
 export default function Portfolio ({ projects, tags, locale }: PortfolioProps): React.ReactElement {
-  const queryTag = getQueryTag() || tags[0]
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const router = useRouter()
+  const rawQueryTag = Array.isArray(router.query.tag) ? router.query.tag[0] : router.query.tag
+  const queryTag = rawQueryTag ?? tags[0]
   useEffect(() => {
     dispatch(changeLanguage(locale))
   }, [])
 
   useEffect(() => {
-    async function removeQuery () {
+    const removeQuery = async (): Promise<void> => {
       await router.replace(router.pathname, undefined, { locale })
     }
-    removeQuery()
+    void removeQuery()
   }, [locale])
 
   return (
@@ -56,7 +57,7 @@ export default function Portfolio ({ projects, tags, locale }: PortfolioProps): 
           <h2 className="text-5xl text-center text-primary dark:text-white mt-28">{t('portfolio')}</h2>
           <Tags tags={tags} queryTag={queryTag} />
           <div className="pb-20 mt-12 gap-9 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-            {projects.filter(project => project.tag == queryTag).map(project => <Card key={project.title} project={project} />)}
+            {projects.filter(project => project.tag === queryTag).map(project => <Card key={project.title} project={project} />)}
           </div>
         </div>
       </Layout>
@@ -65,7 +66,7 @@ export default function Portfolio ({ projects, tags, locale }: PortfolioProps): 
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const lng = (locale ?? i18n.defaultLocale) as typeof i18n.locales[number]
+  const lng = locale ?? i18n.defaultLocale
   const projects: Project[] = await getPortfolioData(lng)
   const tags = Array.from(new Set(projects.map(project => project.tag)))
   return {
@@ -78,14 +79,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       ]))
     }
   }
-}
-
-function getQueryTag () {
-  const router = useRouter()
-  const query = router.query.tag
-  if (query) {
-    if (Array.isArray(query)) return query[0]
-    return query
-  }
-  return null
 }

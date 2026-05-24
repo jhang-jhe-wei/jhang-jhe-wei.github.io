@@ -1,11 +1,12 @@
 import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
 import { ProjectProps } from '../../interfaces/portfolio_interface'
 import Project from './project'
 interface ProjectsProps {
   projects: ProjectProps[]
 }
 
-export default function Projects ({ projects }: ProjectsProps) {
+export default function Projects ({ projects }: ProjectsProps): React.ReactElement {
   const { t } = useTranslation()
   return (
     <div className="mt-40">
@@ -17,7 +18,7 @@ export default function Projects ({ projects }: ProjectsProps) {
         }
       </ul>
       <div className="text-center border-b border-gray-400 dark:border-white">
-        <a href="/portfolio" className="inline-block pt-3 pb-2 pl-3 pr-2 text-gray-400 border border-gray-400 duration-500 hover:scale-125 dark:bg-primary dark:text-white bg-light translate-y-1/2">SHOW MORE &gt;</a>
+        <Link href="/portfolio" className="inline-block pt-3 pb-2 pl-3 pr-2 text-gray-400 border border-gray-400 duration-500 hover:scale-125 dark:bg-primary dark:text-white bg-light translate-y-1/2">SHOW MORE &gt;</Link>
       </div>
     </div>
   )

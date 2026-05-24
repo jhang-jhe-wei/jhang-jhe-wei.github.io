@@ -1,6 +1,6 @@
 import { useAppDispatch } from '../../reducers/store'
 import { toggleLeft, toggleRight } from '../../reducers/figure/figure_slice'
-export default function SwitchBoard ({ x, y }: { x: string, y: string }) {
+export default function SwitchBoard ({ x, y }: { x: string, y: string }): React.ReactElement {
   const dispatch = useAppDispatch()
 
   return (

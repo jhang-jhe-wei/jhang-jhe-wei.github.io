@@ -76,7 +76,7 @@ export default function About ({ education, works, achievements, skillsList, pro
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const lng = (locale ?? i18n.defaultLocale) as typeof i18n.locales[number]
+  const lng = locale ?? i18n.defaultLocale
   const aboutData = await getAboutData(lng)
   const projects: ProjectProps[] = await getPortfolioData(lng)
   return {
