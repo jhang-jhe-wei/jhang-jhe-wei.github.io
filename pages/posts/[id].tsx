@@ -6,7 +6,7 @@ import remarkGfm from 'remark-gfm'
 import Layout from '../../components/layout'
 import rehypeRaw from 'rehype-raw'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useAppDispatch } from 'reducers/store'
+import { useAppDispatch, useAppSelector } from 'reducers/store'
 import { changeLanguage } from 'reducers/locale_slice'
 import { useEffect, useRef } from 'react'
 import { i18n } from 'next-i18next.config'
@@ -22,6 +22,8 @@ interface PostProps {
 export default function PostPage (props: PostProps): React.ReactElement {
   const { post, locale } = props
   const dispatch = useAppDispatch()
+  const mode = useAppSelector((state) => state.mode.value)
+  const giscusTheme = mode === 'dark' ? 'dark' : 'light'
   const giscusRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -49,10 +51,18 @@ export default function PostPage (props: PostProps): React.ReactElement {
     script.setAttribute('data-reactions-enabled', '1')
     script.setAttribute('data-emit-metadata', '0')
     script.setAttribute('data-input-position', 'bottom')
-    script.setAttribute('data-theme', 'preferred_color_scheme')
+    script.setAttribute('data-theme', giscusTheme)
     script.setAttribute('data-lang', locale === 'zh-TW' ? 'zh-TW' : 'en')
     container.appendChild(script)
-  }, [locale])
+  }, [locale, giscusTheme])
+
+  useEffect(() => {
+    const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame')
+    iframe?.contentWindow?.postMessage(
+      { giscus: { setConfig: { theme: giscusTheme } } },
+      'https://giscus.app'
+    )
+  }, [giscusTheme])
 
   return (
     <>
