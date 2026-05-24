@@ -1,8 +1,6 @@
 import { NextSeo } from 'next-seo'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import remarkGfm from 'remark-gfm'
 import Layout from '../../components/layout'
 import rehypeRaw from 'rehype-raw'
@@ -13,11 +11,11 @@ import { useEffect, useRef } from 'react'
 import { i18n } from 'next-i18next.config'
 import DefaultSeo from '../../next-seo.config'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { getAllPosts, getPostById, type Post } from '@/lib/posts'
+import { getAllPosts, getPostDetailById, type PostDetail } from '@/lib/posts'
 
 interface PostProps {
   locale: typeof i18n.locales[number]
-  post: Post
+  post: PostDetail
 }
 
 export default function PostPage (props: PostProps): React.ReactElement {
@@ -100,26 +98,15 @@ export default function PostPage (props: PostProps): React.ReactElement {
                         />
                       )
                     },
-                    code: (props) => {
-                      const { children, className, node, ref, ...rest } = props
-                      const match = /language-(\w+)/.exec(className ?? '')
-                      return (match != null)
-                        ? (
-                          <SyntaxHighlighter
-                            PreTag="div"
-                            language={match[1]}
-                            wrapLines={true}
-                            style={a11yDark}
-                            customStyle={{ backgroundColor: 'transparent' }}
-                          >
-                            {String(children).replace(/\n$/, '')}
-                          </SyntaxHighlighter>
-                          )
-                        : (
-                          <code {...rest} className={className}>
-                            {children}
-                          </code>
-                          )
+                    div: ({ node, ...props }) => {
+                      const shikiIndex = (props as Record<string, unknown>)['data-shiki']
+                      if (typeof shikiIndex === 'string') {
+                        const html = post.highlightedBlocks[Number(shikiIndex)]
+                        if (typeof html === 'string') {
+                          return <div className="shiki-wrapper" dangerouslySetInnerHTML={{ __html: html }} />
+                        }
+                      }
+                      return <div {...props} />
                     }
                   }}
                 >
@@ -151,7 +138,7 @@ export const getStaticProps: GetStaticProps<PostProps> = async (context) => {
     return { notFound: true }
   }
 
-  const post = await getPostById(id)
+  const post = await getPostDetailById(id)
   if (post == null) {
     return { notFound: true }
   }

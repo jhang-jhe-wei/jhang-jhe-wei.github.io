@@ -1,4 +1,5 @@
 import GithubAPI from '@/lib/githubAPI'
+import { codeToHtml } from 'shiki'
 
 const OWNER = 'jhang-jhe-wei'
 const REPO = 'jhang-jhe-wei.github.com'
@@ -11,6 +12,10 @@ export interface Post {
   createdAt: string
   updatedAt: string
   labels: string[]
+}
+
+export interface PostDetail extends Post {
+  highlightedBlocks: string[]
 }
 
 export type PostSummary = Omit<Post, 'body'>
@@ -93,6 +98,45 @@ export async function getPostById (id: number): Promise<Post | null> {
   } catch {
     return null
   }
+}
+
+const CODE_FENCE_RE = /^( {0,3})```([^\n`]*)\n([\s\S]*?)\n?\1```[ \t]*$/gm
+
+export async function getPostDetailById (id: number): Promise<PostDetail | null> {
+  const post = await getPostById(id)
+  if (post == null) return null
+
+  const blocks: Array<{ code: string, lang: string }> = []
+  const rewritten = post.body.replace(CODE_FENCE_RE, (_match, _indent: string, info: string, code: string) => {
+    const lang = info.trim().split(/\s+/)[0] ?? ''
+    const index = blocks.length
+    blocks.push({ code, lang })
+    return `<div data-shiki="${index}"></div>`
+  })
+
+  const highlightedBlocks = await Promise.all(
+    blocks.map(async ({ code, lang }) =>
+      await codeToHtml(code, {
+        lang: isSupportedLang(lang) ? lang : 'text',
+        theme: 'github-dark'
+      })
+    )
+  )
+
+  return { ...post, body: rewritten, highlightedBlocks }
+}
+
+const SUPPORTED_LANGS = new Set([
+  'bash', 'sh', 'shell', 'zsh', 'c', 'cpp', 'css', 'diff', 'docker', 'dockerfile',
+  'go', 'graphql', 'html', 'java', 'javascript', 'js', 'json', 'jsx', 'kotlin',
+  'less', 'lua', 'makefile', 'markdown', 'md', 'mdx', 'nginx', 'objective-c',
+  'perl', 'php', 'powershell', 'ps', 'ps1', 'python', 'py', 'r', 'ruby', 'rb',
+  'rust', 'rs', 'sass', 'scala', 'scss', 'sql', 'swift', 'toml', 'ts', 'tsx',
+  'typescript', 'vue', 'xml', 'yaml', 'yml', 'erb', 'text', 'plaintext'
+])
+
+function isSupportedLang (lang: string): boolean {
+  return SUPPORTED_LANGS.has(lang.toLowerCase())
 }
 
 export function getTotalPage (totalPosts: number): number {
