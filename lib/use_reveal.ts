@@ -6,7 +6,7 @@ export default function useReveal (): [MutableRefObject<any>, boolean] {
     if (reveal) return
     const scrollEventHandler = (): void => {
       const node = element.current as HTMLElement | null
-      if (node == null) return
+      if (node === null) return
       if (node.getBoundingClientRect().top < window.innerHeight * 5 / 6) {
         setReveal(true)
       }

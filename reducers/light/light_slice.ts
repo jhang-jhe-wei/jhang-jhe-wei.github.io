@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface LightState {
-  value: Boolean[];
+  value: boolean[];
 }
 
 const initialState: LightState = {

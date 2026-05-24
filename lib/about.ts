@@ -39,8 +39,8 @@ export type AboutData = Infer<typeof AboutModel>
 export async function getAboutData (locale: typeof i18n.locales[number]): Promise<AboutData> {
   const lng = locale.length > 0 ? locale : i18n.defaultLocale
   const filePath = path.join(process.cwd(), 'data', lng, 'about.yml')
-  const file = fs.readFileSync(filePath, 'utf8')
-  const data = YAML.parse(file)
+  const file = await fs.promises.readFile(filePath, 'utf8')
+  const data: unknown = YAML.parse(file)
   assert(data, AboutModel)
   return data
 }

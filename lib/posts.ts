@@ -30,7 +30,7 @@ const mapLabel = (label: string | GhLabel): string =>
 let cachedAllPosts: Post[] | null = null
 
 export async function getAllPosts (): Promise<Post[]> {
-  if (cachedAllPosts != null) return cachedAllPosts
+  if (cachedAllPosts !== null) return cachedAllPosts
 
   const posts: Post[] = []
   let page = 1
@@ -75,7 +75,7 @@ export async function getAllPosts (): Promise<Post[]> {
 export async function getPostById (id: number): Promise<Post | null> {
   const posts = await getAllPosts()
   const cached = posts.find((p) => p.id === id)
-  if (cached != null) return cached
+  if (cached !== undefined) return cached
 
   try {
     const result = await GithubAPI.request('GET /repos/{owner}/{repo}/issues/{issue_number}', {
@@ -104,7 +104,7 @@ const CODE_FENCE_RE = /^( {0,3})```([^\n`]*)\n([\s\S]*?)\n?\1```[ \t]*$/gm
 
 export async function getPostDetailById (id: number): Promise<PostDetail | null> {
   const post = await getPostById(id)
-  if (post == null) return null
+  if (post === null) return null
 
   const blocks: Array<{ code: string, lang: string }> = []
   const rewritten = post.body.replace(CODE_FENCE_RE, (_match, _indent: string, info: string, code: string) => {

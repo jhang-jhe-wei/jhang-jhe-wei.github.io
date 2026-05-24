@@ -31,11 +31,11 @@ export default function PostPage (props: PostProps): React.ReactElement {
 
   useEffect(() => {
     const container = giscusRef.current
-    if (container == null || container.firstChild != null) return
+    if (container === null || container.firstChild !== null) return
 
     const repoId = process.env.NEXT_PUBLIC_GISCUS_REPO_ID
     const categoryId = process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID
-    if (repoId == null || repoId === '' || categoryId == null || categoryId === '') return
+    if (repoId === undefined || repoId === '' || categoryId === undefined || categoryId === '') return
 
     const script = document.createElement('script')
     script.src = 'https://giscus.app/client.js'
@@ -139,7 +139,7 @@ export const getStaticProps: GetStaticProps<PostProps> = async (context) => {
   }
 
   const post = await getPostDetailById(id)
-  if (post == null) {
+  if (post === null) {
     return { notFound: true }
   }
 

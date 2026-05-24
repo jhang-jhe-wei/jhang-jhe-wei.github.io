@@ -13,7 +13,7 @@ export default function Neonsign ({ width }: {width: string}): React.ReactElemen
     let strokeOffset = 0
     let lastTime = 0
     function loop (time: number): void {
-      if (element.current != null) {
+      if (element.current !== null) {
         const timeDiff = time - lastTime
         lastTime = time
 
