@@ -31,31 +31,36 @@ export async function getAllPosts (): Promise<Post[]> {
   let page = 1
   const perPage = 100
 
-  while (true) {
-    const result = await GithubAPI.request('GET /repos/{owner}/{repo}/issues', {
-      owner: OWNER,
-      repo: REPO,
-      state: 'closed',
-      sort: 'updated',
-      per_page: perPage,
-      page,
-      headers: { 'X-GitHub-Api-Version': '2022-11-28' }
-    })
+  try {
+    while (true) {
+      const result = await GithubAPI.request('GET /repos/{owner}/{repo}/issues', {
+        owner: OWNER,
+        repo: REPO,
+        state: 'closed',
+        sort: 'updated',
+        per_page: perPage,
+        page,
+        headers: { 'X-GitHub-Api-Version': '2022-11-28' }
+      })
 
-    const issues = result.data
-      .filter((issue) => !Object.prototype.hasOwnProperty.call(issue, 'pull_request'))
-      .map((issue): Post => ({
-        title: issue.title,
-        id: issue.number,
-        body: issue.body ?? '',
-        createdAt: issue.created_at,
-        updatedAt: issue.updated_at,
-        labels: issue.labels.map(mapLabel)
-      }))
+      const issues = result.data
+        .filter((issue) => !Object.prototype.hasOwnProperty.call(issue, 'pull_request'))
+        .map((issue): Post => ({
+          title: issue.title,
+          id: issue.number,
+          body: issue.body ?? '',
+          createdAt: issue.created_at,
+          updatedAt: issue.updated_at,
+          labels: issue.labels.map(mapLabel)
+        }))
 
-    posts.push(...issues)
-    if (result.data.length < perPage) break
-    page++
+      posts.push(...issues)
+      if (result.data.length < perPage) break
+      page++
+    }
+  } catch (err) {
+    console.warn('[posts] getAllPosts failed, deferring posts to on-demand SSG. Set GITHUB_TOKEN env to avoid this:', err)
+    return []
   }
 
   cachedAllPosts = posts
