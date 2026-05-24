@@ -40,7 +40,7 @@ export default function Card ({ project }: { project: Project }): React.ReactEle
             }
           </div>
         </div>
-        <button onClick={closeModal} className="w-full h-10 text-center text-white bg-red-700">close</button>
+        <button onClick={closeModal} className="w-full h-10 text-center text-white bg-red-700 hover:bg-red-800 transition-colors duration-200">close</button>
       </Modal>
 
       <div ref={element} className={`mx-auto max-w-xs bg-white font-notosans transition-all duration-500 hover:cursor-pointer ${reveal ? 'opacity-100' : 'translate-y-20 opacity-0'} flex flex-col`} onClick={openModal}>
