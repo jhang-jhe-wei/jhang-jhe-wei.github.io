@@ -1,0 +1,14 @@
+{
+  "name": "Wells 的個人網站",
+  "short_name": "Wells",
+  "description": "在這裡，你可以找到我的專案、部落格、以及其他一些東西。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "lang": "zh-TW",
+  "icons": [
+    { "src": "/favicon.ico", "sizes": "any", "type": "image/x-icon" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

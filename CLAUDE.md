@@ -28,7 +28,7 @@ Default locale `zh-TW`, other `en` (`next-i18next.config.js`).
 Adding a string or content item means editing BOTH locale variants.
 
 ### Pages Router (`pages/`)
-`_app.tsx` composition order: Redux `Provider` → next-seo `DefaultSeo` → next-i18next HOC → GA `gtag` on `routeChangeComplete` → `ModeEffect` writes the Redux `mode` value to `<html class>` so Tailwind dark mode picks it up.
+`_app.tsx` composition order: Redux `Provider` → next-seo `DefaultSeo` → next-i18next HOC → `GoogleAnalytics` from `@next/third-parties/google` (only rendered when `NEXT_PUBLIC_GA_ID` is set) → `ModeEffect` writes the Redux `mode` value to `<html class>` so Tailwind dark mode picks it up. Static head tags (favicon, manifest, apple-touch-icon, theme-color) live in `_document.tsx`.
 
 `posts/[id].tsx` + `posts/page/` use a **custom pagination URL scheme** (`lib/postQuery.ts`): page 0 → `/`, otherwise `/posts/page-N_`. Do not casually replace this with `?page=N` — the format is encoded in `genQuery` / `parseQuery` and referenced by link generation.
 
@@ -40,6 +40,8 @@ Vercel builds with `next build` (no static export) and runs the result with full
 
 ## Gotchas
 
+- **GA tracking ID is read from `NEXT_PUBLIC_GA_ID`.** Set it in Vercel Project Settings → Environment Variables for Production/Preview, and `.env.local` for dev. If unset, `<GoogleAnalytics>` is not rendered (no script tags emitted). The current production ID is `G-V02V7VVXWQ`. See `.env.example`.
+- **Sitemap fetches blog posts directly from GitHub.** `next-sitemap.config.js`'s `additionalPaths` hits the public GitHub REST API to enumerate `/posts/[id]` and `/posts/page/N` URLs (un-prerendered dynamic routes). It runs in a separate Node process at `postbuild`, so it cannot share `lib/posts.ts`'s cache — it re-fetches and stays CJS-only. Optional `GITHUB_TOKEN` raises rate limits.
 - **`next.config.js` silences both TS and ESLint errors at build time** (`typescript.ignoreBuildErrors: true`, `eslint.ignoreDuringBuilds: true`). The Vercel deploy will pass with broken types or lint errors. Run `npm run lint` and `npx tsc --noEmit` manually before declaring a change green.
 - **Node 24+ is required.** `.nvmrc` and `package.json#engines.node` both pin this, but **Vercel's Project Settings → Node.js Version overrides them** — keep that dashboard setting in sync when bumping. Vercel discontinued 18.x in May 2026 and surfaced this as a hard build failure.
 - **`@mui/x-charts` is in `transpilePackages`** because it ships untranspiled ESM. Keep it there if you bump the version.

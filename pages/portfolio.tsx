@@ -13,6 +13,7 @@ import { useAppDispatch } from '../reducers/store'
 import { changeLanguage } from '../reducers/locale_slice'
 import { useEffect } from 'react'
 import DefaultSeo from '../next-seo.config'
+import { SITE_URL, localePath, buildLanguageAlternates } from '@/lib/seo'
 
 interface PortfolioProps {
   projects: Project[]
@@ -37,16 +38,18 @@ export default function Portfolio ({ projects, tags, locale }: PortfolioProps): 
     void removeQuery()
   }, [locale])
 
+  const url = `${SITE_URL}${localePath(locale, '/portfolio')}`
   return (
     <>
       <NextSeo
         title={t('portfolio')}
         description={t('portfolioDescription')}
-        canonical={'https://wells.tw/portfolio'}
+        canonical={url}
+        languageAlternates={buildLanguageAlternates('/portfolio')}
         openGraph={{
           ...DefaultSeo.openGraph,
           locale,
-          url: 'https://wells.tw/portfolio',
+          url,
           title: t('portfolio'),
           description: t('portfolioDescription')
         }}

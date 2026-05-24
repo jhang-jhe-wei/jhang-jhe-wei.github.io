@@ -10,6 +10,7 @@ import Layout from '../../../components/layout'
 import Link from 'next/link'
 import DefaultSeo from '../../../next-seo.config'
 import { useTranslation } from 'next-i18next'
+import { SITE_URL, localePath, buildLanguageAlternates } from '@/lib/seo'
 import tinytime from 'tinytime'
 import { getAllPosts, getTotalPage, paginatePosts, type PostSummary } from '@/lib/posts'
 
@@ -34,16 +35,19 @@ export default function PostPage (props: PostProps): React.ReactElement {
     dispatch(changeLanguage(locale))
   }, [dispatch, locale])
 
+  const basePath = `/posts/page/${page}`
+  const url = `${SITE_URL}${localePath(locale, basePath)}`
   return (
     <>
       <NextSeo
         title={t('blog')}
         description={t('blogDescription')}
-        canonical={'https://wells.tw/posts/page'}
+        canonical={url}
+        languageAlternates={buildLanguageAlternates(basePath)}
         openGraph={{
           ...DefaultSeo.openGraph,
           locale,
-          url: 'https://wells.tw/posts/page',
+          url,
           title: t('blog'),
           description: t('blogDescription')
         }}

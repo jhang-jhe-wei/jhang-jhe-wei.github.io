@@ -20,6 +20,7 @@ import { changeLanguage } from '../reducers/locale_slice'
 import { useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import DefaultSeo from '../next-seo.config'
+import { SITE_URL, localePath, buildLanguageAlternates } from '@/lib/seo'
 
 interface AboutProps {
   education: ListItemProps[]
@@ -36,17 +37,19 @@ export default function About ({ education, works, achievements, skillsList, pro
     dispatch(changeLanguage(locale))
   }, [dispatch, locale])
   const { t } = useTranslation()
+  const url = `${SITE_URL}${localePath(locale, '/about')}`
 
   return (
     <>
       <NextSeo
         title={t('about')}
         description={t('aboutDescription')}
-        canonical={'https://wells.tw/about'}
+        canonical={url}
+        languageAlternates={buildLanguageAlternates('/about')}
         openGraph={{
           ...DefaultSeo.openGraph,
           locale,
-          url: 'https://wells.tw/about',
+          url,
           title: t('about'),
           description: t('aboutDescription')
         }}

@@ -1,4 +1,4 @@
-import { NextSeo } from 'next-seo'
+import { NextSeo, ArticleJsonLd } from 'next-seo'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -12,6 +12,15 @@ import { i18n } from 'next-i18next.config'
 import DefaultSeo from '../../next-seo.config'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { getAllPosts, getPostDetailById, type PostDetail } from '@/lib/posts'
+import {
+  SITE_URL,
+  OG_DEFAULT_IMAGE,
+  OG_DEFAULT_IMAGE_WIDTH,
+  OG_DEFAULT_IMAGE_HEIGHT,
+  buildLanguageAlternates,
+  excerpt,
+  localePath
+} from '@/lib/seo'
 
 interface PostProps {
   locale: typeof i18n.locales[number]
@@ -63,17 +72,45 @@ export default function PostPage (props: PostProps): React.ReactElement {
     )
   }, [giscusTheme])
 
+  const description = excerpt(post.body, 160)
+  const basePath = `/posts/${post.id}`
+  const url = `${SITE_URL}${localePath(locale, basePath)}`
+
   return (
     <>
       <NextSeo
         title={post.title}
-        canonical={`https://wells.tw/posts/${post.id}`}
+        description={description}
+        canonical={url}
+        languageAlternates={buildLanguageAlternates(basePath)}
         openGraph={{
           ...DefaultSeo.openGraph,
           locale,
-          url: `https://wells.tw/posts/${post.id}`,
-          title: post.title
+          url,
+          title: post.title,
+          description,
+          type: 'article',
+          article: {
+            publishedTime: post.createdAt,
+            modifiedTime: post.updatedAt
+          },
+          images: [{
+            url: OG_DEFAULT_IMAGE,
+            width: OG_DEFAULT_IMAGE_WIDTH,
+            height: OG_DEFAULT_IMAGE_HEIGHT,
+            alt: post.title
+          }]
         }}
+      />
+      <ArticleJsonLd
+        type="BlogPosting"
+        url={url}
+        title={post.title}
+        images={[OG_DEFAULT_IMAGE]}
+        datePublished={post.createdAt}
+        dateModified={post.updatedAt}
+        authorName="Wells Jhang"
+        description={description}
       />
       <Layout>
         <main className="pt-8 pb-16 lg:pt-16 lg:pb-24">

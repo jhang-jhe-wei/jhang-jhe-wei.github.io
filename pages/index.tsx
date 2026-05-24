@@ -12,6 +12,7 @@ import { changeLanguage } from '../reducers/locale_slice'
 import { useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import DefaultSeo from '../next-seo.config'
+import { SITE_URL, localePath, buildLanguageAlternates } from '@/lib/seo'
 
 interface HomeProps {
   locale: typeof i18n.locales[number]
@@ -23,14 +24,18 @@ export default function Home ({ locale }: HomeProps): React.ReactElement {
     dispatch(changeLanguage(locale))
   }, [])
   const { t } = useTranslation()
+  const url = `${SITE_URL}${localePath(locale, '/')}`
   return (
     <>
       <NextSeo
         title={t('home')}
         description={t('homeDescription')}
+        canonical={url}
+        languageAlternates={buildLanguageAlternates('/')}
         openGraph={{
           ...DefaultSeo.openGraph,
           locale,
+          url,
           title: t('home'),
           description: t('homeDescription')
         }}
