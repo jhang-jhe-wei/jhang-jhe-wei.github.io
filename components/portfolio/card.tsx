@@ -22,7 +22,7 @@ export default function Card ({ project }: { project: Project }): React.ReactEle
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Project Modal"
-        className="flex flex-col max-w-md bg-white max-h-screen-80"
+        className="flex flex-col max-w-md bg-white max-h-screen-80 focus:outline-none"
         overlayClassName="z-40 fixed inset-0 bg-dark-mask px-5 flex justify-center items-center"
       >
         <div className="flex-1 overflow-y-auto">
