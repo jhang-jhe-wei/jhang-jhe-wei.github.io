@@ -63,6 +63,10 @@ export async function getAllPosts (): Promise<Post[]> {
 }
 
 export async function getPostById (id: number): Promise<Post | null> {
+  const posts = await getAllPosts()
+  const cached = posts.find((p) => p.id === id)
+  if (cached != null) return cached
+
   try {
     const result = await GithubAPI.request('GET /repos/{owner}/{repo}/issues/{issue_number}', {
       owner: OWNER,
