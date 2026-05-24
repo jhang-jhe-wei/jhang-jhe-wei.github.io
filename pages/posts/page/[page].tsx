@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { i18n } from 'next-i18next.config'
 import { useAppDispatch } from '@/reducers/store'
@@ -10,19 +10,11 @@ import Layout from '../../../components/layout'
 import Link from 'next/link'
 import DefaultSeo from '../../../next-seo.config'
 import { useTranslation } from 'next-i18next'
-import GithubAPI from '@/lib/githubAPI'
 import tinytime from 'tinytime'
-
-interface Post {
-  title: string
-  createdAt: string
-  updatedAt: string
-  id: number
-  labels: string[]
-}
+import { getAllPosts, getTotalPage, paginatePosts, type PostSummary } from '@/lib/posts'
 
 interface PostProps {
-  posts: Post[]
+  posts: PostSummary[]
   locale: typeof i18n.locales[number]
   page: number
   totalPage: number
@@ -40,7 +32,7 @@ export default function PostPage (props: PostProps): React.ReactElement {
   const { t } = useTranslation()
   useEffect(() => {
     dispatch(changeLanguage(locale))
-  }, [])
+  }, [dispatch, locale])
 
   return (
     <>
@@ -117,38 +109,35 @@ export default function PostPage (props: PostProps): React.ReactElement {
   )
 }
 
-export const getServerSideProps: GetServerSideProps<PostProps> = async (context) => {
-  const lng = (context.locale ?? i18n.defaultLocale) as typeof i18n.locales[number]
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getAllPosts()
+  const totalPage = getTotalPage(posts.length)
+  const paths = Array.from({ length: totalPage }, (_, i) => ({
+    params: { page: String(i + 1) }
+  }))
+  return {
+    paths,
+    fallback: 'blocking'
+  }
+}
+
+export const getStaticProps: GetStaticProps<PostProps> = async (context) => {
+  const lng = context.locale ?? i18n.defaultLocale
   const page = Number(context.params?.page ?? 1)
 
-  const result = await GithubAPI.request('GET /repos/{owner}/{repo}/issues', {
-    owner: 'jhang-jhe-wei',
-    repo: 'jhang-jhe-wei.github.com',
-    state: 'closed',
-    sort: 'updated',
-    page,
-    headers: {
-      'X-GitHub-Api-Version': '2022-11-28'
-    }
-  })
+  const allPosts = await getAllPosts()
+  const totalPage = getTotalPage(allPosts.length)
 
-  const issues = result.data
-    .filter((issue) => !Object.prototype.hasOwnProperty.call(issue, 'pull_request'))
-    .map((issue) => ({
-      title: issue.title,
-      id: issue.number,
-      sort: 'updated',
-      createdAt: issue.created_at,
-      updatedAt: issue.updated_at,
-      labels: issue.labels.map((label) => (typeof label === 'string' ? label : (label.name ?? '')))
-    }))
+  if (!Number.isFinite(page) || page < 1 || page > totalPage) {
+    return { notFound: true }
+  }
 
   return {
     props: {
-      posts: issues,
+      posts: paginatePosts(allPosts, page),
       locale: lng,
       page,
-      totalPage: page,
+      totalPage,
       ...(await serverSideTranslations(lng, [
         'common'
       ]))
