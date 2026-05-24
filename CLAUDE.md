@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Tech Stack
 
-Next.js 13.4 (Pages Router) · TypeScript · Tailwind 3 (dark mode via `class`) · Redux Toolkit · next-i18next · MUI 5 + MUI X Charts · next-seo · next-sitemap · react-markdown (remark/rehype) · gray-matter for YAML.
+Next.js 13.4 (Pages Router) · TypeScript · Tailwind 3 (dark mode via `class`) · Redux Toolkit · next-i18next · MUI 5 + MUI X Charts · next-seo · next-sitemap · react-markdown (remark/rehype) · yaml for content YAML.
 
 Path alias: `@/*` → repo root (`tsconfig.json`).
 
