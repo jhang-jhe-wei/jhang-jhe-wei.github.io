@@ -4,7 +4,11 @@ works:
     subTitle: "Shopline"
     startedAt: "Jul 2024"
     endedAt: "Present"
-    highlights: []
+    highlights:
+      - Develop features and troubleshoot production issues on a microservices system.
+      - Single-handedly owned the entire team's backend development and production troubleshooting for a quarter.
+      - Introduced OpenTelemetry (OTEL) to improve tracing efficiency across the microservices.
+      - Established team-wide agent skills to boost development and troubleshooting efficiency.
 
   -
     title: "Software Engineer"

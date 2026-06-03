@@ -4,7 +4,11 @@ works:
     subTitle: "Shopline"
     startedAt: "七月 2024"
     endedAt: "Present"
-    highlights: []
+    highlights:
+      - 在微服務系統上進行功能開發與線上問題排查。
+      - 獨自負責整個團隊的後端開發與線上查修達一季。
+      - 導入 OpenTelemetry (OTEL)，提升微服務的 trace 效率。
+      - 建立團隊 agent skills，提升開發與檢修效率。
 
   -
     title: "軟體工程師"
