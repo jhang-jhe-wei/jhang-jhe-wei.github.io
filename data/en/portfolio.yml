@@ -3,21 +3,18 @@
     tag: Software App
     image: /images/ntust-sport-registration.png
     description: Built TAIWAN Tech Uni sport registration system, which streamlines registration flow. from March 2024, it has finished 900+ registrations. Tech stack includes Rails, React, Esbuld, Dokku, Github Actions...
-    demo_link: https://register-sport.ntust.edu.tw/
     highlight: true
 -
     title: LINE Chatbot-Charity Website
     tag: Software App
     image: /images/charity-web.png
     description: We have gathered all the public welfare activities in Taiwan and provide functions such as search and tracking. The system is implemented using Rails and integrated with LINE Message API and LINE LIFF.
-    demo_link: https://charity-web.dokku.wells.tw/
     code_link: https://github.com/jhang-jhe-wei/charity-web
 -
     title: Hochschule Esslingen Course Simulator
     tag: Software App
     image: /images/course-simulator.png
     description:  Hochschule Esslingen Course Selection Simulator is a simulation course selection system developed specifically for Hochschule Esslingen. This system aims to assist students in resolving confusion during the course selection process by providing features such as course selection simulation, course search, and course information. It is implemented using Rails and React.
-    demo_link: https://course-simulator.dokku.wells.tw/
     code_link: https://github.com/jhang-jhe-wei/HE-application-project
 -
     title: LINE Chatbot-NTUST Senior
@@ -54,7 +51,6 @@
     tag: Software App
     image: /images/web-security.png
     description: This project is a midterm assignment for web security. The objective is to create a bulletin board system without using any frameworks or third-party packages. The system should be able to defend against attacks from other users. For this purpose, I have developed a simple MVC architecture using PHP, and it adheres to the principles of a RESTful API design.
-    demo_link: https://web-security.wells.tw
     code_link: https://github.com/jhang-jhe-wei/Websecurity-middle-project
 -
     title: Simple drawing board based on STM32f746g-DISCOVERY
