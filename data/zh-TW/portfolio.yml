@@ -10,14 +10,12 @@
     tag: 軟體系統
     image: /images/charity-web.png
     description: 搜集了全台所有公益活動並提供查詢和追蹤等功能，使用 Rails 實作，並搭配 LINE Message API 和 LINE LIFF。
-    demo_link: https://charity-web.dokku.wells.tw/
     code_link: https://github.com/jhang-jhe-wei/charity-web
 -
     title: Hochschule Esslingen 選課模擬系統
     tag: 軟體系統
     image: /images/course-simulator.png
     description: 「Hochschule Esslingen 選課模擬系統」是一個專為Hochschule Esslingen 學校開發的模擬選課系統。該系統旨在幫助學生解決選課時的困惑，提供選課模擬、課程搜尋和課程資訊等功能。使用 Rails 和 React 實作。
-    demo_link: https://course-simulator.dokku.wells.tw/
     code_link: https://github.com/jhang-jhe-wei/HE-application-project
 -
     title: LINE 聊天機器人—台科不分系學姊

@@ -10,14 +10,12 @@
     tag: Software App
     image: /images/charity-web.png
     description: We have gathered all the public welfare activities in Taiwan and provide functions such as search and tracking. The system is implemented using Rails and integrated with LINE Message API and LINE LIFF.
-    demo_link: https://charity-web.dokku.wells.tw/
     code_link: https://github.com/jhang-jhe-wei/charity-web
 -
     title: Hochschule Esslingen Course Simulator
     tag: Software App
     image: /images/course-simulator.png
     description:  Hochschule Esslingen Course Selection Simulator is a simulation course selection system developed specifically for Hochschule Esslingen. This system aims to assist students in resolving confusion during the course selection process by providing features such as course selection simulation, course search, and course information. It is implemented using Rails and React.
-    demo_link: https://course-simulator.dokku.wells.tw/
     code_link: https://github.com/jhang-jhe-wei/HE-application-project
 -
     title: LINE Chatbot-NTUST Senior
