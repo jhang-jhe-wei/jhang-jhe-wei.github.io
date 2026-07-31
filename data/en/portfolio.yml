@@ -3,7 +3,6 @@
     tag: Software App
     image: /images/ntust-sport-registration.png
     description: Built TAIWAN Tech Uni sport registration system, which streamlines registration flow. from March 2024, it has finished 900+ registrations. Tech stack includes Rails, React, Esbuld, Dokku, Github Actions...
-    demo_link: https://register-sport.ntust.edu.tw/
     highlight: true
 -
     title: LINE Chatbot-Charity Website
@@ -52,7 +51,6 @@
     tag: Software App
     image: /images/web-security.png
     description: This project is a midterm assignment for web security. The objective is to create a bulletin board system without using any frameworks or third-party packages. The system should be able to defend against attacks from other users. For this purpose, I have developed a simple MVC architecture using PHP, and it adheres to the principles of a RESTful API design.
-    demo_link: https://web-security.wells.tw
     code_link: https://github.com/jhang-jhe-wei/Websecurity-middle-project
 -
     title: Simple drawing board based on STM32f746g-DISCOVERY
