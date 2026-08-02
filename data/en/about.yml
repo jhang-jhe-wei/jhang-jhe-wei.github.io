@@ -18,7 +18,7 @@ works:
     highlights:
       - Guide the team(5 members) to develop the project "OMO Assistant", which makes shops expand their business easily. It's used by 300+ branch stores now.
       - Improve CI/CD workflow for large DB migration. Allow hotfix deployment during migrating.
-      - Resolve race conditions in issuing invoices,  after that, our system can issue 300+ invoices per second without errors.
+      - Handled server overload and 503 errors caused by POS devices batch-uploading offline invoices after reconnecting.
   -
     title: "Freelance Software Developer"
     subTitle: "N/A"
@@ -26,7 +26,7 @@ works:
     endedAt: "Present"
     highlights:
       - Built TAIWAN Tech Uni sport registration system, which streamlines registration flow. from March 2024, it has finished 900+ registrations. 
-      - Built Sketchup 3D rebar automatic build plugin. which helps the architect to place various rebars in columns, and calculate the amount of rebars. it saves 90% of the time for the architect.
+      - Built Sketchup 3D rebar automatic build plugin. which helps the architect to place various rebars in columns, and calculate the amount of rebars. Estimated to save around 80% of the architect's modeling and calculation time.
   -
     title: "Part-Time Software Engineer"
     subTitle: "AIHAO Information Company"
